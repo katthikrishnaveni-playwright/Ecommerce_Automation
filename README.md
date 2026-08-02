@@ -21,17 +21,19 @@ The framework automates the complete purchase flow of the SauceDemo application.
 
 ## Project Structure
 
+```
 Ecommerce_Automation/
-
-pages/
-tests/
-utilities/
-reports/
-logs/
-conftest.py
-pytest.ini
-requirements.txt
-README.md
+│
+├── pages/
+├── tests/
+├── utilities/
+├── reports/
+├── logs/
+├── conftest.py
+├── pytest.ini
+├── requirements.txt
+└── README.md
+```
 
 ---
 
@@ -42,20 +44,14 @@ README.md
 - Login with valid credentials
 - Verify Inventory Page
 
----
-
 ### Product Test
 
 - Select Backpack Product
 - Add Product to Cart
 
----
-
 ### Cart Test
 
 - Verify Product in Cart
-
----
 
 ### Checkout Test
 
@@ -68,7 +64,7 @@ README.md
 
 ## Features
 
-- Page Object Model
+- Page Object Model (POM)
 - Smoke Test Suite
 - Regression Test Suite
 - HTML Reports
@@ -106,6 +102,7 @@ pytest --html=reports/report.html --self-contained-html
 
 ## Author
 
-Krishnaveni
+**Krishnaveni**  
 Automation Test Engineer
-Python | Playwright | Pytest
+
+**Python | Playwright | Pytest**
