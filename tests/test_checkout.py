@@ -65,7 +65,7 @@ def test_checkout(open_application):
 
     logout_page = LogoutPage(open_application)
 
-    logout_page.logout()
+    logout_page.click_logout()
 
     assert open_application.url == (
         "https://www.saucedemo.com/"
