@@ -12,20 +12,34 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat '.venv\\Scripts\\python.exe -m pip install -r requirements.txt'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                bat '.venv\\Scripts\\python.exe -m playwright install'
+                bat 'python -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '.venv\\Scripts\\python.exe -m pytest -v -s --html=reports\\report.html --self-contained-html'
+                bat 'python -m pytest -v -s --html=reports\\report.html --self-contained-html'
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'reports/**/*', fingerprint: true
+        }
+
+        success {
+            echo 'Build Successful!'
+        }
+
+        failure {
+            echo 'Build Failed!'
         }
     }
 }
