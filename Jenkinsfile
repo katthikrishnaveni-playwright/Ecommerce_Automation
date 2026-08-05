@@ -12,30 +12,42 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
+                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
+                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s --html=reports\\report.html --self-contained-html'
+                bat '''
+                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s --html=reports\\report.html --self-contained-html
+                if %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
+                '''
             }
         }
     }
 
-   post {
-    success {
-        echo 'Build Successful!'
-    }
+    post {
 
-    failure {
-        echo 'Build Failed!'
+        always {
+            archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
+        }
+
+        success {
+            echo '==============================='
+            echo ' BUILD SUCCESSFUL '
+            echo '==============================='
+        }
+
+        failure {
+            echo '==============================='
+            echo ' BUILD FAILED '
+            echo '==============================='
+        }
     }
-}
 }
