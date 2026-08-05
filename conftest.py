@@ -30,3 +30,4 @@ def pytest_runtest_makereport(item, call):
             )
 
             page.screenshot(path=screenshot_path)
+            print(f"Screenshot saved: {screenshot_path}")

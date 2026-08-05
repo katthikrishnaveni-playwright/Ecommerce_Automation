@@ -11,6 +11,7 @@ class LoginPage:
         self.username_textbox = page.locator("#user-name")
         self.password_textbox = page.locator("#password")
         self.login_button = page.locator("#login-button")
+        self.error_message = page.locator("h3[data-test='error']")
 
     def enter_username(self, username):
 
@@ -29,3 +30,7 @@ class LoginPage:
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()
+
+    def get_error_message(self):
+
+        return self.error_message.text_content()

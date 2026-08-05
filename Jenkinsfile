@@ -29,17 +29,12 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            archiveArtifacts artifacts: 'reports/**/*', fingerprint: true
-        }
+   post {
+    success {
+        echo 'Build Successful!'
+    }
 
-        success {
-            echo 'Build Successful!'
-        }
-
-        failure {
-            echo 'Build Failed!'
-        }
+    failure {
+        echo 'Build Failed!'
     }
 }
