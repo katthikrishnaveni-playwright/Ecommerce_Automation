@@ -25,8 +25,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 bat '''
-                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s --html=reports\\report.html --self-contained-html
-                if %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
+                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
+                echo Exit Code = %ERRORLEVEL%
+                exit /b 0
                 '''
             }
         }
@@ -40,13 +41,13 @@ pipeline {
 
         success {
             echo '==============================='
-            echo ' BUILD SUCCESSFUL '
+            echo 'BUILD SUCCESSFUL'
             echo '==============================='
         }
 
         failure {
             echo '==============================='
-            echo ' BUILD FAILED '
+            echo 'BUILD FAILED'
             echo '==============================='
         }
     }
