@@ -12,19 +12,19 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'python -m pip install -r requirements.txt'
+            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                bat 'python -m playwright install'
+            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'python -m pytest -v -s --html=reports\\report.html --self-contained-html'
+            bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s --html=reports\\report.html --self-contained-html'
             }
         }
     }
