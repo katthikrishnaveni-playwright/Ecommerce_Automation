@@ -12,3 +12,8 @@ reports/
 logs/
 
 *.pyc
+# Allure generated files
+allure-results/
+
+# Test failure screenshots
+screenshots/

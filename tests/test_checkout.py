@@ -8,7 +8,7 @@ from pages.order_confirmation_page import OrderConfirmationPage
 from pages.logout_page import LogoutPage
 from utilities.logger import LogGenerator
 
-
+@pytest.mark.sanity
 @pytest.mark.regression
 def test_checkout(open_application):
 

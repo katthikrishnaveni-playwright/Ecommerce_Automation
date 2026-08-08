@@ -5,6 +5,7 @@ from utilities.logger import LogGenerator
 
 
 @pytest.mark.smoke
+@pytest.mark.regression
 def test_select_product(open_application):
 
     logger = LogGenerator.loggen()

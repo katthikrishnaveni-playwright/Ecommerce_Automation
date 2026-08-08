@@ -26,8 +26,6 @@ pipeline {
             steps {
                 bat '''
                 "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
-                echo Exit Code = %ERRORLEVEL%
-                exit /b 0
                 '''
             }
         }
@@ -37,17 +35,22 @@ pipeline {
 
         always {
             archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'screenshots/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
         }
 
         success {
             echo '==============================='
             echo 'BUILD SUCCESSFUL'
+            echo 'All tests passed.'
             echo '==============================='
         }
 
         failure {
             echo '==============================='
             echo 'BUILD FAILED'
+            echo 'One or more tests failed.'
+            echo 'Check the test report and screenshots.'
             echo '==============================='
         }
     }

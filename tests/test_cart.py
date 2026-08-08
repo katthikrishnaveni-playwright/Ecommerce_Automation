@@ -4,7 +4,7 @@ from pages.product_page import ProductPage
 from pages.cart_page import CartPage
 from utilities.logger import LogGenerator
 
-
+@pytest.mark.smoke
 @pytest.mark.regression
 def test_cart(open_application):
 
