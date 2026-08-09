@@ -1,57 +1,29 @@
-pipeline {
-    agent any
+post {
 
-    stages {
+    always {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/katthikrishnaveni-playwright/Ecommerce_Automation.git'
-            }
-        }
+        archiveArtifacts artifacts: 'reports/**/*',
+                         allowEmptyArchive: true
 
-        stage('Install Dependencies') {
-            steps {
-                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
-            }
-        }
-
-        stage('Install Playwright Browsers') {
-            steps {
-                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                bat '''
-                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
-                '''
-            }
-        }
+        publishHTML(target: [
+            allowMissing: true,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'reports',
+            reportFiles: 'report.html',
+            reportName: 'Pytest HTML Report'
+        ])
     }
 
-    post {
+    success {
+        echo '==============================='
+        echo 'BUILD SUCCESSFUL'
+        echo '==============================='
+    }
 
-        always {
-            archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'screenshots/**/*', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
-        }
-
-        success {
-            echo '==============================='
-            echo 'BUILD SUCCESSFUL'
-            echo 'All tests passed.'
-            echo '==============================='
-        }
-
-        failure {
-            echo '==============================='
-            echo 'BUILD FAILED'
-            echo 'One or more tests failed.'
-            echo 'Check the test report and screenshots.'
-            echo '==============================='
-        }
+    failure {
+        echo '==============================='
+        echo 'BUILD FAILED'
+        echo '==============================='
     }
 }
