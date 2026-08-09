@@ -26,10 +26,20 @@ pipeline {
             }
         }
 
+        stage('Check Allure') {
+            steps {
+                bat '''
+                echo Checking Allure installation...
+                where allure
+                allure --version
+                '''
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 bat '''
-                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
+                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html --alluredir=allure-results
 
                 echo Pytest completed.
                 echo Pytest Exit Code = %ERRORLEVEL%
@@ -54,10 +64,9 @@ pipeline {
                 reportName: 'Pytest HTML Report'
             ])
 
-                    allure includeProperties: false,
-               jdk: '',
-               results: [[path: 'allure-results']]
-
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'allure-results']]
         }
 
         success {
