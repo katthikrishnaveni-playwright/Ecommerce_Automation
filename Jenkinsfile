@@ -53,6 +53,11 @@ pipeline {
                 reportFiles: 'report.html',
                 reportName: 'Pytest HTML Report'
             ])
+
+                    allure includeProperties: false,
+               jdk: '',
+               results: [[path: 'allure-results']]
+
         }
 
         success {
