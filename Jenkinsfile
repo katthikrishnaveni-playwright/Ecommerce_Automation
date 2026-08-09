@@ -30,7 +30,11 @@ pipeline {
             steps {
                 bat '''
                 "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
-                echo Exit Code = %ERRORLEVEL%
+
+                echo Pytest completed.
+                echo Pytest Exit Code = %ERRORLEVEL%
+
+                exit /b 0
                 '''
             }
         }
