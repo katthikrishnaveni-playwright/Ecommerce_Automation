@@ -12,13 +12,17 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
+                bat '''
+                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt
+                '''
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                bat '"C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
+                bat '''
+                "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install
+                '''
             }
         }
 
@@ -26,7 +30,7 @@ pipeline {
             steps {
                 bat '''
                 "C:\\Users\\ajay\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v -s tests --html=reports\\report.html --self-contained-html
-
+                echo Exit Code = %ERRORLEVEL%
                 '''
             }
         }
@@ -35,9 +39,7 @@ pipeline {
     post {
 
         always {
-
-            archiveArtifacts artifacts: 'reports/**/*',
-                             allowEmptyArchive: true
+            archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
 
             publishHTML(target: [
                 allowMissing: true,
@@ -61,3 +63,4 @@ pipeline {
             echo '==============================='
         }
     }
+}
