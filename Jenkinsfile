@@ -26,15 +26,6 @@ pipeline {
             }
         }
 
-        stage('Check Allure') {
-            steps {
-                bat '''
-                echo Checking Allure installation...
-                where allure
-                allure --version
-                '''
-            }
-        }
 
         stage('Run Tests') {
             steps {
