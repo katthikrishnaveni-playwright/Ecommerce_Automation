@@ -65,7 +65,7 @@ pipeline {
             ])
 
             allure includeProperties: false,
-                   jdk: '',
+                   jdk: 'JDK21',
                    results: [[path: 'allure-results']]
         }
 
